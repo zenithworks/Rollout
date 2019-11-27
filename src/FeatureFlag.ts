@@ -1,4 +1,6 @@
 import {FeatureFlagApiBasePath, FeatureFlagUsageApiBasePath, startActiveCall, endActiveCall} from './basePath';
+const fetch = require("node-fetch");
+
 
 const setFeatureFlags = ({flags = []} = {}) => ({
     type: "SET_FEATURE_FLAGS",
@@ -20,11 +22,11 @@ export const fetchFeatureFlags = (projectId: string) => {
     const url = FeatureFlagApiBasePath + "/featureflags?projectId=" + projectId;
     console.log("Fetching " + url);
     fetch(url)
-        .then(data => data.json())
-        .then(flags => {
+        .then((data:any) => data.json())
+        .then( (flags : any) => {
             console.log(flags)
         })
-        .catch(error => {
+        .catch( (error: any) => {
             console.log(error);
         });
 
@@ -42,7 +44,7 @@ export const createNewFeatureFlag = (flag: any, projectId: string) => {
         fetch(url, param)
             .then(() => {
             })
-            .catch(error => {
+            .catch((error: any) => {
                 console.log(error);
             });
   
