@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import {fetchFeatureFlags} from './featureFlag'
+import {fetchFeatureFlags} from './FeatureFlag'
 
 async function run() {
   try {
