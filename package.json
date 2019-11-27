@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc", 
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,5 +12,8 @@
   "devDependencies": {
     "@types/node": "^12.12.14",
     "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.0"
   }
 }
