@@ -1,15 +1,18 @@
 import * as core from '@actions/core';
+import {fetchFeatureFlags} from './featureFlag'
 
 async function run() {
   try {
-    const nameToGreet = core.getInput('who-to-greet');
-    if (nameToGreet == 'Octocat') {
+    const actionType = core.getInput('action-type');
+    const projectId = core.getInput('projectId');
+    if (actionType != 'GET-FEATURE-FLAGS') {
         // the Octocat doesn't want to be greeted here!
-        throw new Error("No Octocat greetings, please.");
+        throw new Error("Operation not supported");
     } else {
-        console.log(`Hello ${nameToGreet}!`);
-        const time = (new Date()).toTimeString();
-        core.setOutput("time", time);
+        console.log(`Hello ${projectId}!`);
+
+        fetchFeatureFlags(projectId)
+        core.setOutput("featureFlags", "");
     }
   } catch (error) {
     core.setFailed(error.message);

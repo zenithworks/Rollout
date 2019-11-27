@@ -1,14 +1,18 @@
 # action.yml
 name: 'Hello World'
-description: 'Greet someone and record the time'
+description: 'Hello world action for the FF'
 inputs: 
-  who-to-greet: # id of input
-    description: 'Who to greet'
+  action-type: # id of input
+    description: 'Type of the action'
     required: true
-    default: 'World'
+    default: 'GET-FEATURE-FLAGS'
+  project-id:
+    description: 'Type of the action'
+    required: true
+    default: ''
 outputs:
-  time: # id of output
-    description: 'The time we did the greeting'
+  featureFlags: # id of output
+    description: 'List of feature flags'
 branding:
   color: 'green' # optional, decorates the entry in the GitHub Marketplace
 runs:
