@@ -1,4 +1,4 @@
-import {FeatureFlagApiBasePath, FeatureFlagUsageApiBasePath, startActiveCall, endActiveCall} from './basePath';
+import {FeatureFlagApiBasePath, FeatureFlagUsageApiBasePath, startActiveCall, endActiveCall, SiteBasePath} from './basePath';
 const fetch = require("node-fetch");
 
 
