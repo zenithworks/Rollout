@@ -7,8 +7,16 @@ inputs:
     required: true
     default: 'GET-FEATURE-FLAGS'
   project-id:
-    description: 'Type of the action'
+    description: 'Id of the feature flag'
     required: true
+    default: ''
+  feature-flag-name:
+    description: 'Name of the feature flag'
+    required: false
+    default: ''
+  feature-flag-condition:
+    description: 'Condition of the feature flag'
+    required: false
     default: ''
 outputs:
   featureFlags: # id of output

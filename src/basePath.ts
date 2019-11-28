@@ -11,3 +11,5 @@ export const startActiveCall = () => ({
 export const endActiveCall = () => ({
     type: "END_ACTIVECALL",
 });
+
+export const SET_FEATURE_FLAG: string = "SET";

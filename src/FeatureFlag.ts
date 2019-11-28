@@ -17,22 +17,23 @@ const setFeatureFlagErrors = ({errors = []} = {}) => ({
     errors
 });
 
-export const fetchFeatureFlags = (projectId: string) => {
+export class FeatureFlagsAPI {
 
-    const url = FeatureFlagApiBasePath + "/featureflags?projectId=" + projectId;
-    console.log("Fetching " + url);
-    fetch(url)
-        .then((data:any) => data.json())
-        .then( (flags : any) => {
-            console.log(flags)
-        })
-        .catch( (error: any) => {
-            console.log(error);
-        });
+    public static fetchFeatureFlags(projectId: string) : Promise<any> {
+        const url = FeatureFlagApiBasePath + "/featureflags?projectId=" + projectId;
+        console.log("Fetching " + url);
+        return fetch(url)
+            .then((data:any) => data.json())
+            .then( (flags : any) => {
+                console.log(flags);
+                return flags;
+            })
+            .catch( (error: any) => {
+                throw error;
+            });
+   } 
 
-};
-
-export const createNewFeatureFlag = (flag: any, projectId: string) => {
+   public static createNewFeatureFlag(flag: any, projectId: string) : Promise<any> {
     
         const url = FeatureFlagApiBasePath + "/featureflags?projectId=" + projectId;
         console.log("Posting on " + url);
@@ -41,12 +42,53 @@ export const createNewFeatureFlag = (flag: any, projectId: string) => {
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
             method: "POST"
         }
-        fetch(url, param)
+    
+        return fetch(url, param)
             .then(() => {
+                return "created";
             })
             .catch((error: any) => {
                 console.log(error);
             });
-  
-};
+    }
+     
+    public static updateFeatureFlag(flag: any, projectId: string) : Promise<any> {
+        const url = FeatureFlagApiBasePath + "/featureflags/" + flag.id + "?projectId=" + projectId;
+        console.log("Putting on " + url);
+        const param = {
+            body: JSON.stringify(flag),
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            method: "PUT"
+        }
+        return fetch(url, param)
+            .then(() => {
+                return "Feature flag updated";
+            })
+            .catch((error: any) => {
+                console.log(error);
+            });
+    }
+
+    public static toggleFeatureFlag(flag: any, projectId: string) : Promise<any> {
+        var flagValue = flag.state.value == "on" ? "off" : "on";
+        flag.state.value = flagValue;
+        const url = FeatureFlagApiBasePath + "/featureflags/" + flag.id + "?projectId=" + projectId;
+        console.log("Fetching " + url);
+        const param = {
+            body: JSON.stringify(flag),
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            method: "PUT"
+        }
+        return fetch(url, param)
+            .then(() => {
+                return "feature flag state updated"
+            })
+            .catch((error: any) => {
+                console.log(error);
+            });
+    }
+}
+
+
+
 
