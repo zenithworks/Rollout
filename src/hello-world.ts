@@ -9,19 +9,7 @@ async function run() {
 
     if (actionType == SET_FEATURE_FLAG) {
 
-      const featureFlagName = core.getInput('feature-flag-name');
-      let featureFlags = await FeatureFlagsAPI.fetchFeatureFlags(projectId);
-
-      let selectedFeatureFlag: any = null;
-      featureFlags.array.forEach((element: any) => {
-        if (element.name.toUpperCase() == featureFlagName.toUpperCase()) {
-          selectedFeatureFlag = element;
-        }
-      });
-
-      if (selectedFeatureFlag == null) {
-        throw "Feature flag not defined : " + featureFlagName;
-      }
+      let selectedFeatureFlag = await getFeatureFlag(projectId);
 
       console.log(selectedFeatureFlag);
 
@@ -53,6 +41,27 @@ async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+
+async function getFeatureFlag(projectId: string) {
+      const featureFlagName = core.getInput('feature-flag-name');
+      let featureFlags = await FeatureFlagsAPI.fetchFeatureFlags(projectId);
+
+      console.log("In main method");
+      console.log(featureFlags)
+
+      let selectedFeatureFlag: any = null;
+      featureFlags.array.forEach((element: any) => {
+        if (element.name.toUpperCase() == featureFlagName.toUpperCase()) {
+          selectedFeatureFlag = element;
+        }
+      });
+
+      if (selectedFeatureFlag == null) {
+        throw "Feature flag not defined : " + featureFlagName;
+      }
+
+      return selectedFeatureFlag;
 }
 
 run();
