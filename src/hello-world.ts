@@ -13,7 +13,7 @@ async function run() {
 
         fetchFeatureFlags(projectId);
 
-        console.log(process.env);
+        console.log(process.env.GITHUB_REPOSITORY);
 
         core.setOutput("featureFlags", "");
     }
