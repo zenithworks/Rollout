@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { SET_FEATURE_FLAG } from './basePath';
+import { SET_FEATURE_FLAG_CONDITION, TOGGLE_FEATURE_FLAG } from './basePath';
 import { FeatureFlagsAPI } from './FeatureFlag'
 
 async function run() {
@@ -7,36 +7,43 @@ async function run() {
     const actionType = core.getInput('action-type');
     const projectId = core.getInput('project-id');
 
-    if (actionType == SET_FEATURE_FLAG) {
+    if (actionType == SET_FEATURE_FLAG_CONDITION) {
 
+        let selectedFeatureFlag = await getFeatureFlag(projectId);
+
+        console.log(selectedFeatureFlag);
+
+        const condition = core.getInput('feature-flag-condition');
+
+        if (condition) {
+          let conditionList = condition.split(',');
+
+          let extraInput: any[] = [];
+          conditionList.forEach(str => {
+            extraInput.push({
+                "namespace": "http://schemas.microsoft.com/azure/featureflags/orchestrator/conditions",
+                "data": str
+            });
+          });
+
+          selectedFeatureFlag['state']['extra'] = extraInput;
+
+
+          await FeatureFlagsAPI.updateFeatureFlag(selectedFeatureFlag, projectId);
+        } else {
+          throw "condition not specified";
+        }
+
+    }  else if (actionType == TOGGLE_FEATURE_FLAG) {
+        let selectedFeatureFlag = await getFeatureFlag(projectId);
+
+        console.log(selectedFeatureFlag);
+
+        await FeatureFlagsAPI.toggleFeatureFlag(selectedFeatureFlag, projectId);
+    } else {
       let selectedFeatureFlag = await getFeatureFlag(projectId);
 
       console.log(selectedFeatureFlag);
-
-      const condition = core.getInput('feature-flag-condition');
-
-      if (condition) {
-        let conditionList = condition.split(',');
-
-        let extraInput: any[] = [];
-        conditionList.forEach(str => {
-          extraInput.push({
-              "namespace": "http://schemas.microsoft.com/azure/featureflags/orchestrator/conditions",
-              "data": str
-          });
-        });
-
-        selectedFeatureFlag['state']['extra'] = extraInput;
-      }
-
-    }  else {
-        console.log(`Hello ${projectId}!`);
-
-        
-
-        console.log(process.env.GITHUB_REPOSITORY);
-
-        core.setOutput("featureFlags", "");
     }
   } catch (error) {
     core.setFailed(error.message);

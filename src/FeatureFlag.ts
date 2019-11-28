@@ -25,7 +25,7 @@ export class FeatureFlagsAPI {
         return fetch(url)
             .then((data:any) => data.json())
             .then( (flags : any) => {
-                console.log(flags);
+                //console.log(flags);
                 return flags;
             })
             .catch( (error: any) => {

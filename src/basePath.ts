@@ -12,4 +12,5 @@ export const endActiveCall = () => ({
     type: "END_ACTIVECALL",
 });
 
-export const SET_FEATURE_FLAG: string = "SET";
+export const SET_FEATURE_FLAG_CONDITION: string = "SET_CONDITION";
+export const TOGGLE_FEATURE_FLAG: string = "TOGGLE";
