@@ -7,9 +7,7 @@ async function run() {
     const actionType = core.getInput('action-type');
     const projectId = core.getInput('project-id');
 
-    if (actionType != 'GET-FEATURE-FLAGS') {
-        throw new Error("Operation not supported");
-    } else if (actionType == SET_FEATURE_FLAG) {
+    if (actionType == SET_FEATURE_FLAG) {
 
       const featureFlagName = core.getInput('feature-flag-name');
       let featureFlags = await FeatureFlagsAPI.fetchFeatureFlags(projectId);
@@ -26,7 +24,7 @@ async function run() {
       }
 
       console.log(selectedFeatureFlag);
-      
+
       const condition = core.getInput('feature-flag-condition');
 
       if (condition) {
@@ -43,10 +41,7 @@ async function run() {
         selectedFeatureFlag['state']['extra'] = extraInput;
       }
 
-    } 
-    
-    
-    else {
+    }  else {
         console.log(`Hello ${projectId}!`);
 
         
