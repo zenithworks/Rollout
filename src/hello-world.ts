@@ -11,7 +11,10 @@ async function run() {
     } else {
         console.log(`Hello ${projectId}!`);
 
-        fetchFeatureFlags(projectId)
+        fetchFeatureFlags(projectId);
+
+        console.log(process.env);
+
         core.setOutput("featureFlags", "");
     }
   } catch (error) {

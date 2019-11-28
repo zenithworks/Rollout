@@ -1,4 +1,4 @@
-export const SiteBasePath = "https://flipflop.vigilance.ms/";
+export const SiteBasePath = "https://flipflop.vigilance.ms";
 export const TenantApiBasePath = "/api"
 export const FeatureFlagApiBasePath = SiteBasePath + "/api"
 export const FeatureFlagUsageApiBasePath = "/api"
