@@ -51,7 +51,7 @@ async function getFeatureFlag(projectId: string) {
       console.log(featureFlags)
 
       let selectedFeatureFlag: any = null;
-      featureFlags.array.forEach((element: any) => {
+      featureFlags.forEach((element: any) => {
         if (element.name.toUpperCase() == featureFlagName.toUpperCase()) {
           selectedFeatureFlag = element;
         }
