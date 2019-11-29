@@ -46,8 +46,8 @@ async function run() {
       console.log(selectedFeatureFlag);
     }
 
-    console.log("Waiting for 7 seconds");
-    await sleep(5000);
+    console.log("Waiting for 3 seconds");
+    await sleep(3000);
   } catch (error) {
     core.setFailed(error.message);
   }
