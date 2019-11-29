@@ -27,12 +27,11 @@ async function run() {
           });
 
           selectedFeatureFlag['state']['extra'] = extraInput;
-
-
-          await FeatureFlagsAPI.updateFeatureFlag(selectedFeatureFlag, projectId);
         } else {
-          throw "condition not specified";
+          selectedFeatureFlag['state']['extra'] = [];
         }
+
+        await FeatureFlagsAPI.updateFeatureFlag(selectedFeatureFlag, projectId);
 
     }  else if (actionType == TOGGLE_FEATURE_FLAG) {
         let selectedFeatureFlag = await getFeatureFlag(projectId);
@@ -45,7 +44,7 @@ async function run() {
     }
 
     console.log("Waiting for 7 seconds");
-    await sleep(7000);
+    await sleep(5000);
   } catch (error) {
     core.setFailed(error.message);
   }
