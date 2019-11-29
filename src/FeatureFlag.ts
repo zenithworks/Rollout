@@ -73,7 +73,12 @@ export class FeatureFlagsAPI {
 
     public static toggleFeatureFlag(flag: any, projectId: string) : Promise<any> {
         var flagValue = flag.state.value == "on" ? "off" : "on";
-        flag.state.value = flagValue;
+        return  FeatureFlagsAPI.setFeatureFlagState(flag, projectId, flagValue);
+    }
+
+    public static setFeatureFlagState(flag: any, projectId: string, state: string) : Promise<any> {
+        var flagValue = flag.state.value == "on" ? "off" : "on";
+        flag.state.value = state;
         const url = FeatureFlagApiBasePath + "/featureflags/" + flag.id + "?projectId=" + projectId;
         console.log("Fetching " + url);
         const param = {

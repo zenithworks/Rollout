@@ -14,6 +14,7 @@ export const endActiveCall = () => ({
 
 export const SET_FEATURE_FLAG_CONDITION: string = "SET_CONDITION";
 export const TOGGLE_FEATURE_FLAG: string = "TOGGLE";
+export const TURN_ON_FEATURE_FLAG = "TURN_ON";
 
 export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));

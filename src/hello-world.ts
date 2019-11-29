@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { SET_FEATURE_FLAG_CONDITION, TOGGLE_FEATURE_FLAG, sleep } from './basePath';
+import { SET_FEATURE_FLAG_CONDITION, TOGGLE_FEATURE_FLAG, TURN_ON_FEATURE_FLAG,  sleep } from './basePath';
 import { FeatureFlagsAPI } from './FeatureFlag'
 
 async function run() {
@@ -37,6 +37,9 @@ async function run() {
         let selectedFeatureFlag = await getFeatureFlag(projectId);
 
         await FeatureFlagsAPI.toggleFeatureFlag(selectedFeatureFlag, projectId);
+    } else if (actionType == TURN_ON_FEATURE_FLAG) {
+        let selectedFeatureFlag = await getFeatureFlag(projectId);
+        await FeatureFlagsAPI.setFeatureFlagState(selectedFeatureFlag, projectId, "on")
     } else {
       let selectedFeatureFlag = await getFeatureFlag(projectId);
 
