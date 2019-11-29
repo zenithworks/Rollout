@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { SET_FEATURE_FLAG_CONDITION, TOGGLE_FEATURE_FLAG } from './basePath';
+import { SET_FEATURE_FLAG_CONDITION, TOGGLE_FEATURE_FLAG, sleep } from './basePath';
 import { FeatureFlagsAPI } from './FeatureFlag'
 
 async function run() {
@@ -11,7 +11,7 @@ async function run() {
 
         let selectedFeatureFlag = await getFeatureFlag(projectId);
 
-        console.log(selectedFeatureFlag);
+        console.log(JSON.stringify(selectedFeatureFlag));
 
         const condition = core.getInput('feature-flag-condition');
 
@@ -37,14 +37,15 @@ async function run() {
     }  else if (actionType == TOGGLE_FEATURE_FLAG) {
         let selectedFeatureFlag = await getFeatureFlag(projectId);
 
-        console.log(selectedFeatureFlag);
-
         await FeatureFlagsAPI.toggleFeatureFlag(selectedFeatureFlag, projectId);
     } else {
       let selectedFeatureFlag = await getFeatureFlag(projectId);
 
       console.log(selectedFeatureFlag);
     }
+
+    console.log("Waiting for 7 seconds");
+    await sleep(7000);
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -53,9 +54,6 @@ async function run() {
 async function getFeatureFlag(projectId: string) {
       const featureFlagName = core.getInput('feature-flag-name');
       let featureFlags = await FeatureFlagsAPI.fetchFeatureFlags(projectId);
-
-      console.log("In main method");
-      console.log(featureFlags)
 
       let selectedFeatureFlag: any = null;
       featureFlags.forEach((element: any) => {

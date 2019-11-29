@@ -14,3 +14,21 @@ export const endActiveCall = () => ({
 
 export const SET_FEATURE_FLAG_CONDITION: string = "SET_CONDITION";
 export const TOGGLE_FEATURE_FLAG: string = "TOGGLE";
+
+export function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+  
+async function demo() {
+    console.log('Taking a break...');
+    
+    console.log('Two seconds later, showing sleep in a loop...');
+
+    // Sleep in loop
+    for (let i = 0; i < 5; i++) {
+        if (i === 3)
+        await sleep(2000);
+        console.log(i);
+    }
+}
+  

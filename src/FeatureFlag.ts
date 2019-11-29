@@ -55,6 +55,7 @@ export class FeatureFlagsAPI {
     public static updateFeatureFlag(flag: any, projectId: string) : Promise<any> {
         const url = FeatureFlagApiBasePath + "/featureflags/" + flag.id + "?projectId=" + projectId;
         console.log("Putting on " + url);
+        console.log(JSON.stringify(flag));
         const param = {
             body: JSON.stringify(flag),
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -62,6 +63,7 @@ export class FeatureFlagsAPI {
         }
         return fetch(url, param)
             .then(() => {
+                console.log("feature flag updated successfully");
                 return "Feature flag updated";
             })
             .catch((error: any) => {
@@ -81,6 +83,7 @@ export class FeatureFlagsAPI {
         }
         return fetch(url, param)
             .then(() => {
+                console.log("feature flag updated successfully");
                 return "feature flag state updated"
             })
             .catch((error: any) => {
