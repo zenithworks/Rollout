@@ -1,6 +1,6 @@
 # action.yml
-name: 'Hello World'
-description: 'Hello world action for the FF'
+name: 'Rollout action'
+description: 'Rollout action'
 inputs: 
   action-type: # id of input
     description: 'Type of the action'
