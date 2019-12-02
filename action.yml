@@ -2,7 +2,7 @@
 name: 'Rollout action'
 description: 'Rollout action'
 inputs: 
-  action-type: # id of input
+  action-type:
     description: 'Type of the action'
     required: true
     default: 'GET-FEATURE-FLAGS'
