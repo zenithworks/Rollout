@@ -19,10 +19,10 @@ inputs:
     required: false
     default: ''
 outputs:
-  featureFlags: # id of output
+  featureFlags: 
     description: 'List of feature flags'
 branding:
-  color: 'green' # optional, decorates the entry in the GitHub Marketplace
+  color: 'green' 
 runs:
   using: 'node12'
   main: 'lib/hello-world.js'
